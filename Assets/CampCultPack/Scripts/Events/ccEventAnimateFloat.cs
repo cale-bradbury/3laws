@@ -16,7 +16,6 @@ public class ccEventAnimateFloat : ccEventFieldBase {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (animTime);
 		if (animTime < time) {
 			animTime+=Time.deltaTime;
 			SetValue(GetValue ());

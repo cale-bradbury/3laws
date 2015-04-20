@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BadScript.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\ArrayUtils.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Callback.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Camera\CameraWorldParticleFix.cs" />
@@ -135,10 +136,12 @@
      <Compile Include="Assets\Holoville\HOTween Extensions\HOTweenManager\Core\ABSHOTweenEditorElement.cs" />
      <Compile Include="Assets\Holoville\HOTween Extensions\HOTweenManager\HOTweenComponent.cs" />
      <Compile Include="Assets\Holoville\HOTween Extensions\HOTweenManager\HOTweenManager.cs" />
+     <Compile Include="Assets\PlayerScript.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\CampCultPack\Shaders\Tint.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
+     <None Include="Assets\CampCultPack\Shaders\RezWireframe.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
      <None Include="Assets\CampCultPack\Shaders\MaterialRipple.shader" />
