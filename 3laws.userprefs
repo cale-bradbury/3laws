@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CampCultPack\Scripts\Creation\ccCreateGroup.cs">
+    <Files>
+      <File FileName="Assets\CampCultPack\Scripts\VJ\AudioController.cs" Line="17" Column="12" />
+      <File FileName="Assets\CampCultPack\Scripts\Creation\ccCreateField.cs" Line="22" Column="6" />
+      <File FileName="Assets\CampCultPack\Scripts\Creation\ccCreateLine.cs" Line="4" Column="37" />
+      <File FileName="Assets\CampCultPack\Scripts\Creation\ccCreateGroup.cs" Line="73" Column="40" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

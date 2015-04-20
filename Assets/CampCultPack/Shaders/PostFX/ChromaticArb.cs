@@ -1,0 +1,17 @@
+using UnityEngine;
+using System.Collections;
+using UnityStandardAssets.ImageEffects;
+
+[ExecuteInEditMode]
+[AddComponentMenu("Image Effects/Cale/ChromaticArb")]
+public class ChromaticArb : ImageEffectBase {
+	public Vector3 dist;
+	public Vector2 center;
+	
+	// Called by camera to apply image effect
+	void OnRenderImage (RenderTexture source, RenderTexture destination) {
+		material.SetVector("_Dist",new Vector4(dist.x,dist.y,dist.z,0));
+		material.SetVector("_Center",new Vector4(center.x+.5f,center.y+.5f,0,0));
+		Graphics.Blit (source, destination, material);
+	}
+}
