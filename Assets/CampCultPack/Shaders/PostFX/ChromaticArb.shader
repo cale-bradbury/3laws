@@ -28,8 +28,8 @@ fixed4 frag (v2f_img i) : COLOR
 	float d = length(uv);
 	float4 c = tex2D(_MainTex,uv+_Center.xy);
 	c.r = tex2D(_MainTex,float2(cos(a)*(d+d*_Dist.r), sin(a)*(d+d*_Dist.r))+_Center.xy).r;
-	c.g = tex2D(_MainTex,float2(cos(a)*(d+d*_Dist.g), sin(a)*(d+d*_Dist.g))+_Center.xy).b;
-	c.b = tex2D(_MainTex,float2(cos(a)*(d+d*_Dist.b), sin(a)*(d+d*_Dist.b))+_Center.xy).g;
+	c.g = tex2D(_MainTex,float2(cos(a)*(d+d*_Dist.g), sin(a)*(d+d*_Dist.g))+_Center.xy).g;
+	c.b = tex2D(_MainTex,float2(cos(a)*(d+d*_Dist.b), sin(a)*(d+d*_Dist.b))+_Center.xy).b;
 	c.a = 1;
 	return c;
 }

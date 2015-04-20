@@ -12,11 +12,8 @@
 		Tags {"Queue" = "Transparent"}
 	    SubShader {
 	        Pass {   
-	    		//Lighting Off  
-	    		Fog {
-	    		
-		     	}     
-	    		Cull Off  
+	    		//Lighting Off      
+	    		Cull Front  
 	            CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
@@ -41,7 +38,49 @@
 				};
 				v2f vert(appdata v) {
 					v2f o;
-					v.vertex.xyz += sin(v.vertex.xyz*(1001.0)+_Time.y)*_Kill;
+					v.vertex.xyz += sin(v.vertex.xyz*(1001.0)+_Time.y*3.1415)*_Kill;
+					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+					o.vert = v.tex;//v.vertex;
+					float4 world = mul(_Object2World, v.vertex);
+					o.fog = world.z/_FogEnd;
+					return o;
+				};
+				half4 frag(v2f i) : COLOR {
+					float s = min(i.vert.x,min(i.vert.y,min(1.0-i.vert.x,1.0-i.vert.y)));
+					float4 c = lerp(lerp(_Color,_FaceColor,smoothstep(0.0,_EdgeSize,s)), _FogColor,i.fog);
+					c.a*=(1.0-_Kill);
+					return c;
+				};
+				ENDCG
+	        }
+	        Pass {   
+	    		//Lighting Off      
+	    		Cull Back  
+	            CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag
+				#pragma target 3.0
+				#include "UnityCG.cginc"
+				float4 _Color;
+				float4 _FaceColor;
+				float _EdgeSize;
+				float4 _FogColor;
+				float _Kill;
+				float _FogEnd;
+				
+				struct appdata {
+					float4 vertex : POSITION;
+					float4 tex:TEXCOORD0;
+				};
+				struct v2f {
+					float4 pos : POSITION;	
+					float4 vert: TEXCOORD0;	
+					float fog:TEXCOORD1;
+					//float4 world;	
+				};
+				v2f vert(appdata v) {
+					v2f o;
+					v.vertex.xyz += sin(v.vertex.xyz*(1001.0)+_Time.y*3.14158)*_Kill;
 					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 					o.vert = v.tex;//v.vertex;
 					float4 world = mul(_Object2World, v.vertex);

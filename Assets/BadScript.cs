@@ -4,31 +4,54 @@ using Holoville.HOTween;
 
 public class BadScript : MonoBehaviour {
 	
+	public AnimationCurve depth;
+	public float maxDepth = -35;
+	public float animationTime;
+	float time = 0;
 	public bool red;
 	public bool green;
 	public bool blue;
 	Material mat;
 	public float kill = 0;
 	bool destroying = false;
-	public bool dirty = true;
+	bool dirty = true;
+	bool isOver = false;
 	
 	void Start () {
 		mat = GetComponent<Renderer> ().material;
 		UpdateColor ();
 	}
 
+	public void SetTime(float f){
+		time = f;
+	}
+
 	void Update(){
 		if (destroying) {
 			UpdateDestroy ();
-		} else if (dirty) {
-			UpdateColor();
+		} else {
+			time+=Time.deltaTime;
+			Vector3 v = transform.position;
+			v.z = depth.Evaluate(time/animationTime)*maxDepth;
+			transform.position = v;
+			if(v.z<0){
+				Destroy(gameObject);
+				Messenger.Broadcast("dmg");
+			}
 		}
 	}
 
-	void OnMouseOver () {
-		if (PlayerScript.red)RemoveRed ();
-		if (PlayerScript.green)RemoveGreen ();
-		if (PlayerScript.blue)RemoveBlue ();
+	public void Hit () {
+		if (destroying)
+			return;
+		if (PlayerScript.red)
+			RemoveRed ();
+		if (PlayerScript.green)
+			RemoveGreen ();
+		if (PlayerScript.blue)
+			RemoveBlue ();
+		if (dirty)
+			UpdateColor ();
 	}
 
 	void RemoveRed(){
@@ -64,11 +87,11 @@ public class BadScript : MonoBehaviour {
 
 	void StartDestroy(){
 		destroying = true;
-
 		HOTween.To (this, 2, new TweenParms ().Prop ("kill",1));
 	}
 
 	void UpdateDestroy(){
+		if(kill==1)Destroy(gameObject);
 		mat.SetFloat ("_Kill", kill);
 	}
 }
