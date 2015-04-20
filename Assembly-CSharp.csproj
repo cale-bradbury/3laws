@@ -76,6 +76,9 @@
      <Compile Include="Assets\CampCultPack\Scripts\Events\KeyLockMouse.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Events\MouseLockClick.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Events\WarpOnKey.cs" />
+     <Compile Include="Assets\CampCultPack\Scripts\Events\ccEventAnimateFloat.cs" />
+     <Compile Include="Assets\CampCultPack\Scripts\Events\ccEventBase.cs" />
+     <Compile Include="Assets\CampCultPack\Scripts\Events\ccEventFieldBase.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Lights\LightSineColor.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Materials\MaterialLerpColor.cs" />
      <Compile Include="Assets\CampCultPack\Scripts\Materials\UVScroll.cs" />

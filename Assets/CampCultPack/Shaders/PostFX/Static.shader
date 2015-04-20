@@ -23,7 +23,7 @@ uniform float4 _x;
 
 fixed4 frag (v2f_img i) : COLOR
 {
-	float4 s = tex2D(_StaticTex,float2(_x.x,mod(i.uv.y+_x.y+_Time.y*_x.w,1)));
+	float4 s = tex2D(_StaticTex,float2(_x.x,fmod(i.uv.y+_x.y+_Time.y*_x.w,1)));
 	float4 c = 1.0;
 	c.r = tex2D(_MainTex,float2(i.uv.x+(s.r-0.5)*_x.z,i.uv.y)).r;
 	c.g = tex2D(_MainTex,float2(i.uv.x+(s.g-0.5)*_x.z,i.uv.y)).g;
