@@ -36,10 +36,11 @@ float4 tessEdge (appdata v0, appdata v1, appdata v2)
 }
 
 sampler2D _ParallaxMap;
+float4 _ParallaxMap_ST;
 
 void disp (inout appdata v)
 {
-	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy,0,0)).a * _Parallax;
+	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy*_ParallaxMap_ST.xy+_ParallaxMap_ST.zw,0,0)).a * _Parallax;
 	v.vertex.xyz += v.normal * d;
 }
 
@@ -59,7 +60,7 @@ void surf (Input IN, inout SurfaceOutput o) {
 	o.Gloss = tex.a;
 	o.Alpha = tex.a * _Color.a;
 	o.Specular = _Shininess;
-	o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+	o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap*_ParallaxMap_ST.xy+_ParallaxMap_ST.zw));
 }
 ENDCG
 }

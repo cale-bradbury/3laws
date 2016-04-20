@@ -16,7 +16,8 @@ public class BadScript : MonoBehaviour {
 	bool destroying = false;
 	bool dirty = true;
 	bool isOver = false;
-	
+	public string destroyEvent = "hat";
+
 	void Start () {
 		mat = GetComponent<Renderer> ().material;
 		UpdateColor ();
@@ -85,8 +86,9 @@ public class BadScript : MonoBehaviour {
 		}
 	}
 
-	void StartDestroy(){
+	public void StartDestroy(){
 		destroying = true;
+		Messenger.Broadcast (destroyEvent);
 		HOTween.To (this, 2, new TweenParms ().Prop ("kill",1));
 	}
 

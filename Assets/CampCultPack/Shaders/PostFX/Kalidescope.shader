@@ -30,7 +30,7 @@ fixed4 frag (v2f_img i) : COLOR
 	uv-=0.5;
 	float a = atan2(uv.y,uv.x)+_SpinAngle;
 	float d = length(uv);
-	a = mod(a,_Angle*2);
+	a = fmod(a+3.1415,_Angle*2);
 	a = abs(a-_Angle)+_BaseAngle;
 	uv.x = sin(a)*d;
 	uv.y = cos(a)*d;	

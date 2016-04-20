@@ -16,11 +16,15 @@ public class PlayerScript : MonoBehaviour {
 	Material energyMat;
 	Material healthMat;
 	float energy = 1;
-	float health = 1;
+	public float health = 1;
 	bool canFire;
 	Vector2 target = Vector2.zero;
 	public GameObject[] targets;
 	public float targetLerp = .1f;
+	public string dieEvent;
+	public bool mouseMode = false;
+	public float axisMul = 20;
+	Vector2 aTarget = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
@@ -31,11 +35,17 @@ public class PlayerScript : MonoBehaviour {
 
 	void Hit(){
 		health -= healthPerHit;
+		if (health <= 0) {
+			Component.FindObjectOfType<BadManager>().EndGame();
+			Messenger.Broadcast (dieEvent);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		MoveTargets ();
+		
+		Camera.main.transform.position = Vector3.zero;
 		red = blue = green = false;
 		if (canFire) {
 			red = Input.GetButton ("red");
@@ -44,10 +54,14 @@ public class PlayerScript : MonoBehaviour {
 			CastRay();
 
 			float loss = energyLossPerSecond * ((red ? 1 : 0) + (blue ? 1 : 0) + (green ? 1 : 0))*Time.deltaTime;
-			if(loss!=0)energy-=loss;
+			if(loss!=0){
+				energy-=loss;
+				Camera.main.transform.position = Random.insideUnitSphere*.1f*Mathf.Max(0,.5f-(energy));
+			}
 			else energy+=energyGainPerSecond*Time.deltaTime;
 			energyMat.SetColor("_Color",Color.white);
 			if (energy < 0)canFire = false;
+
 		} else {
 			energy += energyGainPerSecond*Time.deltaTime;
 			if(energy>energyCooldownRelease)canFire = true;
@@ -64,7 +78,15 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void MoveTargets(){
-		target = Vector2.Lerp(target,Input.mousePosition,targetLerp);
+		if (mouseMode) {
+			aTarget = Input.mousePosition;
+		} else {
+			aTarget.x+=Input.GetAxis("Horizontal")*axisMul;
+			aTarget.y+=Input.GetAxis("Vertical")*axisMul;
+			aTarget.x = Mathf.Max(10,Mathf.Min(Screen.width-10,aTarget.x));
+			aTarget.y = Mathf.Max(10,Mathf.Min(Screen.height-10,aTarget.y));
+		}
+		target = Vector2.Lerp (target, aTarget, targetLerp);
 		Vector3 v = Camera.main.ScreenToWorldPoint (new Vector3 (target.x,target.y,1));
 		bool[] a = new bool[3];
 		a [0] = red;

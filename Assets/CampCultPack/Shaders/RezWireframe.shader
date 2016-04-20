@@ -5,6 +5,7 @@
 	 	_EdgeSize("EdgeSize",Range (0.0, 1.0))=0.1
 	 	_FogColor("FogColor",Color) = (0.0,0.0,0.0,1.0)
 	 	_FogEnd("FogEnd",float)=100.0
+	 	_KillFreq("KillFreq",float) = 1000.0
 	 	_Kill("Kill",float) = 0
     }
     Category{
@@ -25,6 +26,7 @@
 				float4 _FogColor;
 				float _Kill;
 				float _FogEnd;
+				float _KillFreq;
 				
 				struct appdata {
 					float4 vertex : POSITION;
@@ -38,7 +40,7 @@
 				};
 				v2f vert(appdata v) {
 					v2f o;
-					v.vertex.xyz += sin(v.vertex.xyz*(1001.0)+_Time.y*3.1415)*_Kill;
+					v.vertex.xyz += sin(v.vertex.xyz*(_KillFreq)+_Time.y*3.1415)*_Kill;
 					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 					o.vert = v.tex;//v.vertex;
 					float4 world = mul(_Object2World, v.vertex);
@@ -67,6 +69,7 @@
 				float4 _FogColor;
 				float _Kill;
 				float _FogEnd;
+				float _KillFreq;
 				
 				struct appdata {
 					float4 vertex : POSITION;
@@ -80,7 +83,7 @@
 				};
 				v2f vert(appdata v) {
 					v2f o;
-					v.vertex.xyz += sin(v.vertex.xyz*(1001.0)+_Time.y*3.14158)*_Kill;
+					v.vertex.xyz += sin(v.vertex.xyz*(_KillFreq)+_Time.y*3.14158)*_Kill;
 					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 					o.vert = v.tex;//v.vertex;
 					float4 world = mul(_Object2World, v.vertex);

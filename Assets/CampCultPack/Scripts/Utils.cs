@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
 
 public class Utils : MonoBehaviour {
 
@@ -8,5 +9,13 @@ public class Utils : MonoBehaviour {
 			if(recurse)DestroyAllChildrenIn(obj.transform.GetChild(i).gameObject,true);
 			GameObject.Destroy(obj.transform.GetChild(i).gameObject);
 		}
+	}
+
+	static public void MoveComponent(Component c, GameObject moveTo){
+		Component b = moveTo.AddComponent(c.GetType());
+		foreach (FieldInfo f in c.GetType().GetFields()){
+			f.SetValue(b, f.GetValue(c));
+		}
+		DestroyImmediate (c);
 	}
 }
