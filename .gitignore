@@ -42,3 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /Temp/UnityLockfile
+/Temp/
+/Library/
+/[Bb]uild
